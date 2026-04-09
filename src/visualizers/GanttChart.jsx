@@ -129,7 +129,7 @@ export default function GanttChart({ assignments, rejected, trace, currentStep, 
           <span className="text-xs font-semibold text-red-500">Missed deadlines:</span>
           {[...rejectedSoFar].map(job => (
             <span key={job} className="text-xs bg-red-50 text-red-600 border border-red-200 rounded px-2 py-0.5">
-              ✕ {job}
+              {job}
             </span>
           ))}
         </div>

@@ -1,35 +1,33 @@
 /**
  * Knapsack via Backtracking — Comparison Run
  * Module 5: Backtracking
+ * Trace includes nodeId + parentNodeId for proper tree rendering
  */
 export function knapsackBacktrack(crops, budget, pruning = true) {
-  let nodes     = 0;
-  let bestValue = 0;
-  let bestSet   = [];
-  const trace   = [];
+  let nodeCounter = 0;
+  let bestValue   = 0;
+  let bestSet     = [];
+  const trace     = [];
 
-  function bt(idx, currentCost, currentValue, chosen) {
-    nodes++;
-    if (nodes > 2000) return; // safety cap for display
+  function bt(idx, currentCost, currentValue, chosen, parentNodeId, depth) {
+    const nodeId = ++nodeCounter;
+    if (nodeCounter > 300) return; // safety cap for display
 
     trace.push({
-      node:  nodes,
-      idx,
-      cost:  currentCost,
-      value: currentValue,
-      chosen:[...chosen],
-      status:'explore',
+      nodeId, parentNodeId, depth,
+      idx, cost: currentCost, value: currentValue,
+      label: idx < crops.length ? crops[idx].name : 'leaf',
+      chosen: [...chosen],
+      status: 'explore',
     });
 
-    // Update best
     if (currentValue > bestValue) {
       bestValue = currentValue;
       bestSet   = [...chosen];
     }
-
     if (idx >= crops.length) return;
 
-    // Pruning: upper bound = current + remaining fractional value
+    // Pruning: upper bound
     if (pruning) {
       let ub  = currentValue;
       let cap = budget - currentCost;
@@ -43,27 +41,27 @@ export function knapsackBacktrack(crops, budget, pruning = true) {
         }
       }
       if (ub <= bestValue) {
-        trace.push({ node: nodes, idx, cost: currentCost, value: currentValue, chosen:[...chosen], status:'pruned', reason:'UB ≤ best' });
+        const pruneId = ++nodeCounter;
+        trace.push({
+          nodeId: pruneId, parentNodeId: nodeId, depth: depth + 1,
+          idx, cost: currentCost, value: currentValue,
+          label: 'pruned', status: 'pruned', reason: 'UB ≤ best',
+        });
         return;
       }
     }
 
-    // Include crop[idx]
+    // Include branch
     if (currentCost + crops[idx].packageCost <= budget) {
-      bt(idx + 1, currentCost + crops[idx].packageCost, currentValue + crops[idx].expectedYield, [...chosen, crops[idx].id]);
+      bt(idx + 1, currentCost + crops[idx].packageCost,
+         currentValue + crops[idx].expectedYield,
+         [...chosen, crops[idx].id], nodeId, depth + 1);
     }
-
-    // Exclude
-    bt(idx + 1, currentCost, currentValue, [...chosen]);
+    // Exclude branch
+    bt(idx + 1, currentCost, currentValue, [...chosen], nodeId, depth + 1);
   }
 
-  bt(0, 0, 0, []);
+  bt(0, 0, 0, [], null, 0);
 
-  return {
-    bestValue,
-    bestSet,
-    nodes,
-    trace,
-    pruning,
-  };
+  return { bestValue, bestSet, nodes: nodeCounter, trace, pruning };
 }

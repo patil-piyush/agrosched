@@ -32,7 +32,7 @@
 html { scroll-behavior: smooth; }
 body { margin:0; font-family:'Inter',sans-serif; background:#F8FAF5; color:#1B2A1E; overflow-x:hidden; }
 
-.scroll-container { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+.scroll-container { height:100vh; overflow-y:scroll; scroll-snap-type:y proximity; scroll-behavior:smooth; }
 .scroll-section   { scroll-snap-align:start; min-height:100vh; position:relative; }
 .scroll-container::-webkit-scrollbar { width:5px; }
 .scroll-container::-webkit-scrollbar-track { background:#E8F5E9; }
@@ -68,3 +68,14 @@ body { margin:0; font-family:'Inter',sans-serif; background:#F8FAF5; color:#1B2A
 
 .gradient-hero { background: linear-gradient(135deg, #1B5E3B 0%, #2D6A4F 40%, #1a4731 100%); }
 .section-divider { border-top: 2px solid; border-image: linear-gradient(90deg,transparent,#52B788,transparent) 1; }
+
+/* U8 Fix: tall sections (M4 has 6 tabs) should not hard-snap */
+.scroll-section-free {
+  scroll-snap-align: none;
+}
+
+/* Ensure content areas inside sections can scroll independently */
+.inner-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

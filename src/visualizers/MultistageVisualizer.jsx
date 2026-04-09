@@ -91,7 +91,7 @@ export default function MultistageVisualizer({ stages, optimalPath, totalYield, 
                   fontSize={8} fontWeight="700"
                   fill={node.isStart || node.isEnd || isOpt ? '#333' : '#fff'}
                   fontFamily="Inter">
-                  {node.cropName === 'Fallow' ? '🌿' : (node.cropName || '').slice(0, 6)}
+                  {(node.cropName || '').slice(0, 6)}
                 </text>
                 {node.cumYield > 0 && (
                   <text x={node.x} y={node.y + 10} textAnchor="middle"

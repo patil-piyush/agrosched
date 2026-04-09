@@ -23,7 +23,7 @@ export default function Module2Section() {
   const qsResult  = useMemo(() => quickSort(farm.crops), [farm.crops]);
   const bsResult  = useMemo(() => {
     const assgns = buildAssignmentsForBS(farm.crops, farm.plots);
-    return binarySearch(assgns, Math.round(farm.crops.reduce((s,c)=>s+c.expectedYield,0)*0.7));
+    return binarySearch(assgns, Math.round(farm.crops.reduce((s,c)=>s+c.expectedYield,0)*0.7), farm.weeklyWater * 2);
   }, [farm]);
   const karaResult = useMemo(() => {
     const { x, y } = buildFarmMultiplication(farm);
@@ -204,7 +204,7 @@ export default function Module2Section() {
                 </div>
                 <div className="p-3 rounded-xl bg-green-50 text-center">
                   <span className="text-sm font-bold text-green-800">
-                    🚀 Karatsuba saves {karaResult.savings}% operations for these numbers
+                    Karatsuba saves {karaResult.savings}% operations for these numbers
                   </span>
                 </div>
 
