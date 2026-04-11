@@ -229,7 +229,7 @@ export default function Module5Section() {
                     currentStep={dpResult.fills.length - 1}
                     rowLabels={farm.crops.slice(0, 7).map(c => c.name)}
                     colStep={dpResult.step}
-                    maxCols={Math.min(dpResult.cols, 50)}
+                    maxCols={Math.min(dpResult.cols, 80)}
                   />
                   <div className="mt-3 text-xs text-gray-400">
                     All cells computed deterministically — no tree, no branching, no backtracking

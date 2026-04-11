@@ -43,7 +43,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#F8FAF5; color:#1B2A
 .step-btn:disabled { opacity:0.4; cursor:not-allowed; }
 
 .algo-card { background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.07); border:1px solid #f0f4f1; padding:24px; }
-.dp-cell { width:42px; height:34px; font-size:11px; font-family:'JetBrains Mono',monospace; display:flex; align-items:center; justify-content:center; border:1px solid #e5e7eb; transition:background 0.3s,color 0.2s; }
+.dp-cell { width:44px; min-width:44px; height:32px; font-size:10px; font-family:'JetBrains Mono',monospace; text-align:center; vertical-align:middle; border:1px solid #e5e7eb; transition:background 0.25s,color 0.2s; padding:0 2px; }
 .gantt-cell { border:1px solid #e5e7eb; height:36px; position:relative; overflow:hidden; }
 .fallow-bg { background-image:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(0,0,0,0.08) 4px,rgba(0,0,0,0.08) 5px); background-color:#CFD8DC; }
 .tree-edge { stroke:#9CA3AF; stroke-width:1.5; fill:none; }
